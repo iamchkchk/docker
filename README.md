@@ -15,7 +15,7 @@ docker run --name redis -p 6379:6379 -d redis40
 docker run -it --link redis40:redis --rm redis redis-cli -h redis -p 6379
 
 
-gist
+# docker
 https://gist.github.com/iamchkchk/492cffb52cf269ed50fa39236e91d688
 https://gist.github.com/iamchkchk/a28340b24515f1e34ecc590a7b8d98e6
 https://gist.github.com/iamchkchk/082d9151e77a132585e6223117b34add
