@@ -1,0 +1,58 @@
+#
+#  docker run --name env71ss --link mysql57:dbserver --link redis40:redis -it -d -p 80:80 -p 443:443 -v /d/dockerbase/wwwshare:/wwwshare -v /c/wamp/www:/var/www/html -v /d/dockerbase/logs/apache2:/var/log/apache2 dev/apachephp71ss:latest
+#
+#  //mysql
+#  docker run --name mysql57 -v /d/dockerbase/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql
+#
+#  //redis
+#  docker run --name redis40 -p 6379:6379 -d redis
+#  
+#  //rm all
+#  docker rm env71ss
+#  docker rm mysql57
+#  docker rm redis40
+#
+version: '3'
+services:
+  httpd71ss:
+    image: "dev/httpd71ss:latest"
+   
+    depends_on:
+     - dbserver
+     - redis
+    ports:
+     - "80:80"
+     - "443:443"
+    volumes:
+     - /d/dockerbase/wwwshare:/wwwshare 
+     - /d/var/www/html:/var/www/html 
+     - /d/dockerbase/logs/apache2:/var/log/apache2
+    restart: always 
+  
+  dbserver:
+    image: "mysql"
+   
+    ports:
+     - "3306:3306"
+    volumes:
+     - /d/dockerbase/mysql/data:/var/lib/mysql
+    environment:
+     MYSQL_ROOT_PASSWORD: root
+    restart: always
+
+  redis:
+    image: "redis"
+   
+    ports:
+     - "6379:6379"
+    restart: always
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+     - 9200:9200
+     
+  kibana:
+    image: kibana
+    ports:
+     - 5601:5601
