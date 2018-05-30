@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
 					unzip \
 					git \
 					apache2 \
-					openssl \
+					openssl 
+                    
+RUN apt-get update && apt-get install -y \
 					php7.1 \
 					php7.1-cli \
 					php7.1-fpm \
@@ -29,6 +31,9 @@ RUN apt-get update && apt-get install -y \
 					php7.1-intl \
 					libapache2-mod-php7.1
 
+RUN apt-get update && apt-get install -y \
+                    supervisor
+                    
 #create ssl Cert
 #ref : https://github.com/MarvAmBass/docker-apache2-ssl-secure
 RUN mkdir -p /etc/apache2/external
@@ -47,7 +52,7 @@ RUN php composer-setup.php --install-dir=/bin --filename=composer
 RUN a2enmod rewrite; \
     a2enmod ssl; \
     a2enmod headers;
-
+    
 #copy apache config
 COPY ./000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY ./001-default-ssl.conf /etc/apache2/sites-enabled/001-default-ssl.conf
