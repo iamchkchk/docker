@@ -8,14 +8,14 @@
 #  docker run --name redis40 -p 6379:6379 -d redis
 #  
 #  //rm all
-#  docker rm env71ss
+#  docker rm env72ss
 #  docker rm mysql57
 #  docker rm redis40
 #
 version: '3'
 services:
-  httpd71ss:
-    image: "dev/httpd71ss:latest"
+  httpd72ss:
+    image: "dev/httpd72ss:latest"
    
     depends_on:
      - dbserver
@@ -30,13 +30,13 @@ services:
     restart: always 
   
   dbserver:
-    image: "mysql:5.7"
+    image: "mysql"
     command: --innodb-use-native-aio=0
     restart: always
     ports:
      - "3306:3306"
     volumes:
-     - /d/dockerbase/mysql/data:/var/lib/mysql
+     - /d/dockerbase/mysql8/data:/var/lib/mysql
     environment:
      MYSQL_ROOT_PASSWORD: root
 
@@ -46,13 +46,3 @@ services:
     ports:
      - "6379:6379"
     restart: always
-
-  elasticsearch:
-    image: elasticsearch
-    ports:
-     - 9200:9200
-     
-  kibana:
-    image: kibana
-    ports:
-     - 5601:5601

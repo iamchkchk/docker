@@ -20,16 +20,23 @@ docker pull elasticsearch
 docker pull redis  
 docker pull kibana  
 
+# /apache2-php71-ssl
+docker build -t dev/httpd71ss .
 
-docker build -t dev/httpd71ss .  
+# /apache2-php72-ssl
 docker build -t dev/httpd72ss .  
 
-
+# apache2.4 + ssl + php7.1 + mysql5.7 + redis
 docker-compose -f myweb.yml down  
 docker-compose -f myweb.yml up -d  
 
+# apache2.4 + ssl + php7.2 + mysql5.7 + redis
 docker-compose -f myweb72.yml down  
 docker-compose -f myweb72.yml up -d  
+
+# apache2.4 + ssl + php7.2 + mysql8 + redis
+docker-compose -f myweb72-m8.yml down  
+docker-compose -f myweb72-m8.yml up -d  
 
 # gist
 https://gist.github.com/iamchkchk/492cffb52cf269ed50fa39236e91d688  
@@ -41,6 +48,36 @@ https://gist.github.com/iamchkchk/082d9151e77a132585e6223117b34add
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';  
 FLUSH PRIVILEGES;  
 
+# NOTE : mysql5.7
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+
+docker run --name some-mysql -p 3306:3306 -v /d/dockerbase/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7 --innodb-use-native-aio=0
+
+docker exec -it some-mysql bash
+
+mysql -uroot -proot
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';  
+FLUSH PRIVILEGES;  
+
+docker stop some-mysql
+
+docker rm some-mysql
+
 # mysql 8
 ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';  
 FLUSH PRIVILEGES;  
+
+# NOTE : mysql8
+docker run --name mysql8 -p 3306:3306 -v /d/dockerbase/mysql8/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql --innodb-use-native-aio=0
+
+docker exec -it mysql8 bash
+
+mysql -uroot -proot
+
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+FLUSH PRIVILEGES;
+
+docker stop mysql8
+
+docker rm mysql8
