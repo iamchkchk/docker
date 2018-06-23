@@ -25,7 +25,6 @@ docker build -t dev/httpd71ss .
 docker build -t dev/httpd72ss .
 
 
-
 docker-compose -f myweb.yml down
 docker-compose -f myweb.yml up -d
 
@@ -39,6 +38,9 @@ https://gist.github.com/iamchkchk/082d9151e77a132585e6223117b34add
 
 
 # mysql 5.7
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';
-FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root'
+FLUSH PRIVILEGES
 
+# mysql 8
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root'
+FLUSH PRIVILEGES
