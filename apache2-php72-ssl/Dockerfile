@@ -1,5 +1,5 @@
-FROM ubuntu:16.04
-
+FROM ubuntu:18.04
+ENV DEBIAN_FRONTEND="noninteractive"
 ENV APACHE_LOG_DIR="/var/log/apache2"
 ENV LANG C.UTF-8
 
