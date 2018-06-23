@@ -29,8 +29,16 @@ docker build -t dev/httpd72ss .
 docker-compose -f myweb.yml down
 docker-compose -f myweb.yml up -d
 
+docker-compose -f myweb72.yml down
+docker-compose -f myweb72.yml up -d
 
 # gist
 https://gist.github.com/iamchkchk/492cffb52cf269ed50fa39236e91d688
 https://gist.github.com/iamchkchk/a28340b24515f1e34ecc590a7b8d98e6
 https://gist.github.com/iamchkchk/082d9151e77a132585e6223117b34add
+
+
+#mysql 5.7
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';
+FLUSH PRIVILEGES;
+
