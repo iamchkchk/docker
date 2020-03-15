@@ -26,6 +26,15 @@ docker build -t dev/httpd71ss .
 # /apache2-php72-ssl
 docker build -t dev/httpd72ss .  
 
+# /apache2-php73-ssl
+docker build -t dev/httpd73ss . 
+
+# /vuecli-php73
+docker build -t dev/vuecli-php73 .
+
+# /ubuntu 19.10 node 10.16.0
+docker build -t dev/u1910n1016 .
+
 # apache2.4 + ssl + php7.1 + mysql5.7 + redis
 docker-compose -f myweb.yml down  
 docker-compose -f myweb.yml up -d  
@@ -37,6 +46,10 @@ docker-compose -f myweb72.yml up -d
 # apache2.4 + ssl + php7.2 + mysql8 + redis
 docker-compose -f myweb72-m8.yml down  
 docker-compose -f myweb72-m8.yml up -d  
+
+# apache2.4 + ssl + php7.3 + mysql8 + redis
+docker-compose -f myweb73-m8.yml down  
+docker-compose -f myweb73-m8.yml up -d  
 
 # gist
 https://gist.github.com/iamchkchk/492cffb52cf269ed50fa39236e91d688  
