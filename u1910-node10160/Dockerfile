@@ -18,8 +18,6 @@ SHELL ["/bin/bash", "--login", "-i", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 RUN source /root/.bashrc && nvm install 10.16.0
 
-
-
 #npm cache clean
 RUN npm cache clean --force
 
@@ -31,10 +29,12 @@ RUN npm cache clean --force
 
 SHELL ["/bin/bash", "--login", "-c"]
 
+RUN mkdir -p mkdir /var/www/html
 
 ##RUN chmod +x /usr/local/bin/run
 
-#EXPOSE 3000
-#EXPOSE 80
-#EXPOSE 443
+EXPOSE 3000
+EXPOSE 80
+EXPOSE 443
+
 ##CMD ["/usr/local/bin/run"]
